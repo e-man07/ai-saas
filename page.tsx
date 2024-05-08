@@ -19,12 +19,11 @@ import { Empty } from "@/components/empty";
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
-import ReactMarkdown from "react-markdown";
 
 const ConversationPage = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<
-    OpenAI.Chat.CreateChatCompletionRequestMessage[]
+    OpenAI.Chat.ChatCompletionCreateMessageParam[]
   >([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,7 +36,7 @@ const ConversationPage = () => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: OpenAI.Chat.CreateChatCompletionRequestMessage = {
+      const userMessage: OpenAI.Chat.ChatCompletionCreateMessageParam = {
         role: "user",
         content: values.prompt,
       };
